@@ -14,3 +14,8 @@ Allows you to change the color of the spectators chat
 
 * Download latest [release](https://github.com/dronelektron/spectators-chat-color/releases)
 * Extract `plugins` folder to `addons/sourcemod` folder of your server
+
+### Console Variables
+
+* sm_spectatorschatcolor_player - The color of the player chat [default: "0099FF"]
+* sm_spectatorschatcolor_server - The color of the server chat [default: "EE82EE"]
