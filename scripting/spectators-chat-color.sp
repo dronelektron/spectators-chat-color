@@ -4,24 +4,24 @@
 
 #include "spectators-chat-color/message"
 #include "spectators-chat-color/use-case"
+#include "spectators-chat-color/user-message"
 
 #include "modules/console-variable.sp"
+#include "modules/frame.sp"
 #include "modules/message.sp"
 #include "modules/use-case.sp"
+#include "modules/user-message.sp"
 
 public Plugin myinfo = {
     name = "Spectators chat color",
     author = "Dron-elektron",
     description = "Allows you to change the color of the spectators chat",
-    version = "0.2.0",
+    version = "0.3.0",
     url = "https://github.com/dronelektron/spectators-chat-color"
 };
 
 public void OnPluginStart() {
     Variable_Create();
+    UserMessage_HookSayText();
     AutoExecConfig(_, "spectators-chat-color");
-}
-
-public Action OnClientSayCommand(int client, const char[] command, const char[] args) {
-    return UseCase_OnClientSayCommand(client, args) ? Plugin_Handled : Plugin_Continue;
 }

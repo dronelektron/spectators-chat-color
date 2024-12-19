@@ -3,6 +3,8 @@
 #endif
 #define _spectators_chat_color_message_included
 
+#define MESSAGE_SIZE 256
+
 #define COLOR_DEFAULT 0x01
 #define COLOR_RGB 0x07
 #define COLOR_SIZE 8
