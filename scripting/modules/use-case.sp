@@ -9,6 +9,10 @@ bool UseCase_OnClientSayCommand(int client, const char[] message) {
         return false;
     }
 
+    if (IsAdminSay(client, message)) {
+        return false;
+    }
+
     int team = GetClientTeam(client);
 
     if (team < TEAM_ALLIES) {
@@ -22,4 +26,13 @@ bool UseCase_OnClientSayCommand(int client, const char[] message) {
 
 static bool IsConsole(int client) {
     return client < 1;
+}
+
+static bool IsAdminSay(int client, const char[] message) {
+    bool isSay = message[0] == CHAT_SYMBOL;
+    bool isPlayerSay = message[1] == CHAT_SYMBOL;
+    bool hasAccessToSay = CheckCommandAccess(client, "sm_say", ADMFLAG_CHAT);
+    bool hasAccessToPlayerSay = CheckCommandAccess(client, "sm_psay", ADMFLAG_CHAT);
+
+    return (isSay && hasAccessToSay) || (isPlayerSay && hasAccessToPlayerSay);
 }
