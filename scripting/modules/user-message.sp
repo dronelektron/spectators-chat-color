@@ -19,15 +19,16 @@ public Action Hook_OnSayText(UserMsg id, BfRead buffer, const int[] players, int
     }
 
     int startFrom = colonIndex + 2;
+    int target = players[0];
 
     if (UseCase_IsConsole(client)) {
-        Frame_Console(message[startFrom]);
+        Frame_Console(message[startFrom], target);
 
         return Plugin_Handled;
     }
 
     if (UseCase_IsSpectator(client)) {
-        Frame_Spectator(client, message[startFrom]);
+        Frame_Spectator(client, message[startFrom], target);
 
         return Plugin_Handled;
     }

@@ -4,5 +4,4 @@
 #define _spectators_chat_color_use_case_included
 
 #define INDEX_NOT_FOUND -1
-#define INVALID_CLIENT 0
 #define TEAM_ALLIES 2

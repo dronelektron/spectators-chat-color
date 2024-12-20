@@ -1,18 +1,19 @@
-void Frame_Console(const char[] message) {
+void Frame_Console(const char[] message, int target) {
     DataPack data = new DataPack();
 
     data.WriteString(message);
+    data.WriteCell(target);
     data.Reset();
 
     RequestFrame(Frame_OnConsole, data);
 }
 
-void Frame_Spectator(int client, const char[] message) {
+void Frame_Spectator(int client, const char[] message, int target) {
     DataPack data = new DataPack();
-    int userId = GetClientUserId(client);
 
-    data.WriteCell(userId);
+    data.WriteCell(client);
     data.WriteString(message);
+    data.WriteCell(target);
     data.Reset();
 
     RequestFrame(Frame_OnSpectator, data);
@@ -23,24 +24,20 @@ public void Frame_OnConsole(DataPack data) {
 
     data.ReadString(message, sizeof(message));
 
+    int target = data.ReadCell();
+
     CloseHandle(data);
-    Message_FromServer(message);
+    Message_FromServer(message, target);
 }
 
 public void Frame_OnSpectator(DataPack data) {
-    int userId = data.ReadCell();
-    int client = GetClientOfUserId(userId);
-
-    if (client == INVALID_CLIENT) {
-        CloseHandle(data);
-
-        return;
-    }
-
+    int client = data.ReadCell();
     char message[MESSAGE_SIZE];
 
     data.ReadString(message, sizeof(message));
 
+    int target = data.ReadCell();
+
     CloseHandle(data);
-    Message_FromPlayer(client, message);
+    Message_FromPlayer(client, message, target);
 }
