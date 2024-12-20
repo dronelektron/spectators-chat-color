@@ -1,14 +1,4 @@
-void Frame_Console(const char[] message, int target) {
-    DataPack data = new DataPack();
-
-    data.WriteString(message);
-    data.WriteCell(target);
-    data.Reset();
-
-    RequestFrame(Frame_OnConsole, data);
-}
-
-void Frame_Spectator(int client, const char[] message, int target) {
+void Frame_PrintMessage(int client, const char[] message, int target) {
     DataPack data = new DataPack();
 
     data.WriteCell(client);
@@ -16,21 +6,10 @@ void Frame_Spectator(int client, const char[] message, int target) {
     data.WriteCell(target);
     data.Reset();
 
-    RequestFrame(Frame_OnSpectator, data);
+    RequestFrame(Frame_OnPrintMessage, data);
 }
 
-public void Frame_OnConsole(DataPack data) {
-    char message[MESSAGE_SIZE];
-
-    data.ReadString(message, sizeof(message));
-
-    int target = data.ReadCell();
-
-    CloseHandle(data);
-    Message_FromServer(message, target);
-}
-
-public void Frame_OnSpectator(DataPack data) {
+public void Frame_OnPrintMessage(DataPack data) {
     int client = data.ReadCell();
     char message[MESSAGE_SIZE];
 
@@ -39,5 +18,5 @@ public void Frame_OnSpectator(DataPack data) {
     int target = data.ReadCell();
 
     CloseHandle(data);
-    Message_FromPlayer(client, message, target);
+    Message_Print(client, message, target);
 }

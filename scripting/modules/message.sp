@@ -1,13 +1,11 @@
-void Message_FromServer(const char[] message, int target) {
+void Message_Print(int client, const char[] message, int target) {
     char color[COLOR_SIZE];
 
-    Variable_ServerColor(color);
-    PrintToChat(target, "%s%s%N: %s%s", COLOR_RGB, color, CONSOLE, COLOR_DEFAULT, message);
-}
+    if (client == CONSOLE) {
+        Variable_ServerColor(color);
+    } else {
+        Variable_PlayerColor(color);
+    }
 
-void Message_FromPlayer(int client, const char[] message, int target) {
-    char color[COLOR_SIZE];
-
-    Variable_PlayerColor(color);
     PrintToChat(target, "%s%s%N: %s%s", COLOR_RGB, color, client, COLOR_DEFAULT, message);
 }

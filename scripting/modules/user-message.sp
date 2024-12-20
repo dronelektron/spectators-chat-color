@@ -6,29 +6,24 @@ void UserMessage_HookSayText() {
 
 public Action Hook_OnSayText(UserMsg id, BfRead buffer, const int[] players, int playersAmount, bool reliable, bool init) {
     int client = buffer.ReadByte();
-    char message[MESSAGE_SIZE];
 
-    buffer.ReadString(message, sizeof(message), LINE_YES);
+    if (UseCase_IsConsole(client) || UseCase_IsSpectator(client)) {
+        char message[MESSAGE_SIZE];
 
-    int colonIndex = FindCharInString(message, ':');
+        buffer.ReadString(message, sizeof(message), LINE_YES);
 
-    if (colonIndex == INDEX_NOT_FOUND) {
-        LogError("Unable to hook a message");
+        int colonIndex = FindCharInString(message, ':');
 
-        return Plugin_Continue;
-    }
+        if (colonIndex == INDEX_NOT_FOUND) {
+            LogError("Unable to hook a message");
 
-    int startFrom = colonIndex + 2;
-    int target = players[0];
+            return Plugin_Continue;
+        }
 
-    if (UseCase_IsConsole(client)) {
-        Frame_Console(message[startFrom], target);
+        int startFrom = colonIndex + 2;
+        int target = players[0];
 
-        return Plugin_Handled;
-    }
-
-    if (UseCase_IsSpectator(client)) {
-        Frame_Spectator(client, message[startFrom], target);
+        Frame_PrintMessage(client, message[startFrom], target);
 
         return Plugin_Handled;
     }
