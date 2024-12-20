@@ -3,6 +3,7 @@
 #endif
 #define _spectators_chat_color_message_included
 
+#define CONSOLE 0
 #define MESSAGE_SIZE 256
 
 #define COLOR_DEFAULT 0x01

@@ -1,5 +1,5 @@
 bool UseCase_IsConsole(int client) {
-    return client < 1;
+    return client == CONSOLE;
 }
 
 bool UseCase_IsSpectator(int client) {
