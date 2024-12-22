@@ -7,7 +7,6 @@
 #include "spectators-chat-color/user-message"
 
 #include "modules/console-variable.sp"
-#include "modules/frame.sp"
 #include "modules/message.sp"
 #include "modules/use-case.sp"
 #include "modules/user-message.sp"

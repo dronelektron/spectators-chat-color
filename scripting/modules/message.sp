@@ -1,4 +1,4 @@
-void Message_Print(int client, const char[] message, int target) {
+void Message_Print(int client, int target, const char[] message) {
     char color[COLOR_SIZE];
 
     if (client == CONSOLE) {
