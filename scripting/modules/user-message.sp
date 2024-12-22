@@ -1,10 +1,10 @@
 void UserMessage_HookSayText() {
     UserMsg id = GetUserMessageId("SayText");
 
-    HookUserMessage(id, Hook_OnSayText, INTERCEPT_YES);
+    HookUserMessage(id, UserMessage_OnSayText, INTERCEPT_YES);
 }
 
-public Action Hook_OnSayText(UserMsg id, BfRead buffer, const int[] players, int playersAmount, bool reliable, bool init) {
+public Action UserMessage_OnSayText(UserMsg id, BfRead buffer, const int[] players, int playersAmount, bool reliable, bool init) {
     int client = buffer.ReadByte();
 
     if (UseCase_IsConsole(client) || UseCase_IsSpectator(client)) {
