@@ -13,7 +13,7 @@ public Action UserMessage_OnSayText(UserMsg id, BfRead buffer, const int[] playe
         buffer.ReadString(message, sizeof(message), LINE_YES);
 
         int colonIndex = FindCharInString(message, ':');
-        int startFrom = colonIndex + 2;
+        int startFrom = colonIndex + MESSAGE_OFFSET;
 
         if (colonIndex == INDEX_NOT_FOUND) {
             startFrom = 0;
